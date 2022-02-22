@@ -162,8 +162,8 @@ class TestCreateTasks:
         )
         toloka_client_mock.create_tasks.assert_called()
         call = toloka_client_mock.create_tasks.mock_calls[0]
-        assert (tasks_mock,) == call.args, call.args
-        assert kwargs == call.kwargs, call.kwargs
+        assert (tasks_mock,) == call[1], call[1]
+        assert kwargs == call[2], call[2]
 
     def test_create_tasks_with_pool(self, toloka_client_mock, tasks_mock, tasks_creation_result, pool_mock):
         assert tasks_creation_result == create_tasks.run(
@@ -171,7 +171,7 @@ class TestCreateTasks:
             pool_id=pool_mock,
         )
         call = toloka_client_mock.create_tasks.mock_calls[0]
-        assert all(task.pool_id == pool_mock.id for task in call.args[0])
+        assert all(task.pool_id == pool_mock.id for task in call[1][0])
 
     def test_create_tasks_with_exam_pool(self, toloka_client_mock, tasks_mock, tasks_creation_result, training_mock):
         assert tasks_creation_result == create_tasks.run(
@@ -179,7 +179,7 @@ class TestCreateTasks:
             pool_id=training_mock,
         )
         call = toloka_client_mock.create_tasks.mock_calls[0]
-        assert all(task.pool_id == training_mock.id for task in call.args[0])
+        assert all(task.pool_id == training_mock.id for task in call[1][0])
 
 
 class TestOpenPool:
@@ -201,29 +201,29 @@ class TestOpenExamPool:
 class TestGetAssignments:
     def test_get_assignments_by_pool_object(self, toloka_client_mock, pool_mock, assignments_mock):
         assert assignments_mock == get_assignments.run(pool_mock)
-        assert pool_mock.id == toloka_client_mock.get_assignments.mock_calls[0].kwargs['pool_id']
+        assert pool_mock.id == toloka_client_mock.get_assignments.mock_calls[0][2]['pool_id']
 
     def test_get_assignments_by_pool_id(self, toloka_client_mock, pool_mock, assignments_mock):
         assert assignments_mock == get_assignments.run(pool_mock.id)
 
     def test_get_assignments_with_status(self, toloka_client_mock, pool_mock, assignments_mock):
         assert assignments_mock == get_assignments.run(pool_mock.id, ['ACCEPTED'])
-        assert ['ACCEPTED'] == toloka_client_mock.get_assignments.mock_calls[0].kwargs['status']
+        assert ['ACCEPTED'] == toloka_client_mock.get_assignments.mock_calls[0][2]['status']
 
 
 class TestGetAssignmentsDf:
     def test_get_assignments_df_by_pool_object(self, toloka_client_mock, pool_mock, assignments_df_mock):
         assert assignments_df_mock.equals(get_assignments_df.run(pool_mock))
-        assert pool_mock.id == toloka_client_mock.get_assignments_df.mock_calls[0].kwargs['pool_id']
-        assert [] == toloka_client_mock.get_assignments_df.mock_calls[0].kwargs['status']
-        assert 'field' not in toloka_client_mock.get_assignments_df.mock_calls[0].kwargs
+        assert pool_mock.id == toloka_client_mock.get_assignments_df.mock_calls[0][2]['pool_id']
+        assert [] == toloka_client_mock.get_assignments_df.mock_calls[0][2]['status']
+        assert 'field' not in toloka_client_mock.get_assignments_df.mock_calls[0][2]
 
     def test_get_assignments_df_by_pool_id(self, toloka_client_mock, pool_mock, assignments_df_mock):
         assert assignments_df_mock.equals(get_assignments_df.run(pool_mock.id))
 
     def test_get_assignments_df_with_status(self, toloka_client_mock, pool_mock, assignments_df_mock):
         assert assignments_df_mock.equals(get_assignments_df.run(pool_mock.id, 'APPROVED'))
-        assert ['APPROVED'] == toloka_client_mock.get_assignments_df.mock_calls[0].kwargs['status']
+        assert ['APPROVED'] == toloka_client_mock.get_assignments_df.mock_calls[0][2]['status']
 
     def test_get_assignments_df_with_kwargs(self, toloka_client_mock, pool_mock, assignments_df_mock):
         kwargs = {'status': ['APPROVED'],
@@ -232,4 +232,4 @@ class TestGetAssignmentsDf:
                   'exclude_banned': True,
                   'field': GetAssignmentsTsvParameters.Field.ASSIGNMENT_ID}
         assert assignments_df_mock.equals(get_assignments_df.run(pool_mock.id, **kwargs))
-        assert {'pool_id': pool_mock.id, **kwargs} == toloka_client_mock.get_assignments_df.mock_calls[0].kwargs
+        assert {'pool_id': pool_mock.id, **kwargs} == toloka_client_mock.get_assignments_df.mock_calls[0][2]

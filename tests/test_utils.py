@@ -65,4 +65,4 @@ def test_with_logger(context_mock, pool):
     some_func('info-arg')
 
     assert 1 == len(logger_mock.mock_calls), logger_mock.mock_calls
-    assert ('info-arg',) == logger_mock.mock_calls[0].args
+    assert ('info-arg',) == logger_mock.mock_calls[0][1]
