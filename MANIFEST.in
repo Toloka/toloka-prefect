@@ -1,6 +1,2 @@
 # Legal
 include LICENSE AUTHORS CONTRIBUTING.md
-
-# Stubs
-recursive-include src py.typed
-recursive-include src *.pyi

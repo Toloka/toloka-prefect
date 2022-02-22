@@ -7,6 +7,6 @@
 * create_tasks
 * open_pool
 * open_exam_pool
-* with_logge
+* wait_pool
 * get_assignments
 * get_assignments_df

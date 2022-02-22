@@ -9,7 +9,7 @@ with open('README.md') as f:
 setup(
     name='toloka-prefect',
     packages=['toloka_prefect'],
-    version='0.0.1',
+    version='0.0.2',
     description='Toloka prefect tasks library',
     long_description=readme,
     long_description_content_type='text/markdown',
@@ -18,11 +18,10 @@ setup(
     author_email='vlad-mois@yandex-team.ru',
     python_requires='>=3.7.0',
     install_requires=[
-        'attrs',
         'pandas >= 1.1.0',
         'prefect',
         'requests',
-        'toloka-kit>=0.1.21',
+        'toloka-kit==0.1.23',
     ],
     include_package_data=True,
     project_urls={
@@ -39,6 +38,7 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: Implementation :: CPython',
         'Topic :: Scientific/Engineering',
         'Topic :: Software Development',

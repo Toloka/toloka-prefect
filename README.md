@@ -1,5 +1,7 @@
 # Toloka-Prefect
 
+[![GitHub Tests](https://github.com/Toloka/toloka-prefect/workflows/Tests/badge.svg?branch=main)](//github.com/Toloka/toloka-prefect/actions?query=workflow:Tests)
+
 This library allows you to run crowdsourcing [Toloka](https://toloka.ai/) processes in [Prefect](https://www.prefect.io/) - a widely used workflow management system
 
 Here you can find a collection of ready-made Prefect tasks for the most frequently used actions in [Toloka-Kit](https://github.com/Toloka/toloka-kit).
