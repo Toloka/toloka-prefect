@@ -9,7 +9,7 @@ with open('README.md') as f:
 setup(
     name='toloka-prefect',
     packages=['toloka_prefect'],
-    version='0.0.2',
+    version='0.0.3',
     description='Toloka prefect tasks library',
     long_description=readme,
     long_description_content_type='text/markdown',
